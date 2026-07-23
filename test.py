@@ -1,10 +1,7 @@
-from speech import SpeechManager
+from stt import WhisperSTT
 
-speech = SpeechManager()
+stt = WhisperSTT()
 
 while True:
-
-    text = speech.listen()
-
-    if text:
-        speech.speak(f"You said {text}")
+    text = stt.listen()
+    print(text)

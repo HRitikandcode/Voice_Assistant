@@ -1,0 +1,12 @@
+SpeechRecognition
+PyAudio
+ollama
+sounddevice
+soundfile
+numpy
+vosk
+pyautogui
+opencv-python
+pillow
+requests
+python-dotenv

@@ -1,12 +1,12 @@
 from speech import SpeechManager
-from commands import execute
-from ai import ask
 from config import WAKE_WORD, EXIT_COMMANDS
+from brain import Brain
 
 
 class Assistant:
 
     def __init__(self):
+        self.brain = Brain()
         self.speech = SpeechManager()
         self.wake_word = WAKE_WORD
 
@@ -19,29 +19,42 @@ class Assistant:
             if not text:
                 continue
 
-            if self.wake_word in text:
-                self.speech.speak("Hello Boss! How can I help you?")
+            text = text.strip().lower()
+
+            if text.startswith(self.wake_word):
+
+                # Remove wake word
+                command = text.replace(self.wake_word, "", 1).strip()
+
+                # If user only said the wake word
+                if not command:
+                    self.speech.speak("Hello Boss! How can I help you?")
+                    self.conversation()
+                    continue
+
+                # User already gave a command
+                response = self.brain.process(command)
+                self.speech.speak(response)
+
+                # Stay in conversation mode
                 self.conversation()
 
     def conversation(self):
-        
+
         while True:
+
             command = self.speech.listen()
 
             if not command:
                 continue
 
+            command = command.strip().lower()
+
             # Exit conversation
-            if any(word in command for word in EXIT_COMMANDS):
+            if any(exit_cmd in command for exit_cmd in EXIT_COMMANDS):
                 self.speech.speak("Okay. Going back to sleep.")
                 break
 
-            # Try local commands first
-            response = execute(command)
+            response = self.brain.process(command)
 
-            # If no local command matches, ask the AI
-            if response is None:
-                response = ask(command)
-
-            # Speak the response
             self.speech.speak(response)

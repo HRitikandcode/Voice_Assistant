@@ -1,4 +1,4 @@
-WAKE_WORD = "jarvis"
+WAKE_WORD = "victor"
 
 MODEL_NAME = "llama3.2"
 
