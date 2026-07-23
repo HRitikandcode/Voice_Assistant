@@ -1,7 +1,7 @@
-from stt import WhisperSTT
+from gui import VectorGUI
 
-stt = WhisperSTT()
+gui = VectorGUI()
 
-while True:
-    text = stt.listen()
-    print(text)
+gui.set_state("listen")
+
+gui.run()

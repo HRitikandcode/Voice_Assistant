@@ -1,6 +1,6 @@
 from ollama import chat
 from config import MODEL_NAME
-from memory import Memory
+from core.memory import Memory
 
 memory = Memory()
 

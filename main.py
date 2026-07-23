@@ -1,5 +1,14 @@
-from assistant import Assistant
+from core.assistant import Assistant
+from gui.window import KryptonGUI
+import threading
 
-assistant = Assistant()
+gui = KryptonGUI()
 
-assistant.run()
+assistant = Assistant(gui)
+
+threading.Thread(
+    target=assistant.run,
+    daemon=True
+).start()
+
+gui.run()
