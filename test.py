@@ -1,7 +1,11 @@
-from gui import VectorGUI
+from agents.computer_agent import ComputerAgent
+import time
 
-gui = VectorGUI()
+computer = ComputerAgent()
 
-gui.set_state("listen")
+print("Click inside Notepad within 5 seconds...")
+time.sleep(5)
 
-gui.run()
+computer.write("Hello from Krypton!")
+computer.press("enter")
+computer.write("Testing keyboard automation.")
